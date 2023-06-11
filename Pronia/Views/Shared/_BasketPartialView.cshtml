@@ -1,0 +1,52 @@
+﻿@model BasketViewModel
+<div class="offcanvas-body">
+    <div class="minicart-content">
+        <div class="minicart-heading">
+            <h4 class="mb-0">Shopping Cart</h4>
+            <a href="#" class="button-close">
+                <i class="pe-7s-close"
+                   data-tippy="Close"
+                   data-tippy-inertia="true"
+                   data-tippy-animation="shift-away"
+                   data-tippy-delay="50"
+                   data-tippy-arrow="true"
+                   data-tippy-theme="sharpborder"></i>
+            </a>
+        </div>
+        <ul class="minicart-list">
+            @foreach(var bi in Model.BasketProducts)
+            {
+                <li class="minicart-product">
+                    <a asp-action="removebasket" asp-controller="plant" asp-route-id="@bi.Plant.Id" class="product-item_remove removebasket">
+                        <i class="pe-7s-close"
+                       data-tippy="Remove"
+                       data-tippy-inertia="true"
+                       data-tippy-animation="shift-away"
+                       data-tippy-delay="50"
+                       data-tippy-arrow="true"
+                       data-tippy-theme="sharpborder"></i>
+                    </a>
+                    <a href="single-product-variable.html"
+                   class="product-item_img">
+                        <img class="img-full" style="width: 270px; height: 200px;"
+                         src="~/assets/images//website-images/@bi.Plant.PlantImages.FirstOrDefault(x=>x.PosterStatus)?.ImageName"
+                         alt="Product Image" />
+                    </a>
+                    <div class="product-item_content">
+                        <a class="product-item_title"
+                       href="single-product-variable.html">@bi.Plant.Name</a>
+                        <span class="product-item_quantity">@bi.Count x $@bi.Plant.SalePrice</span>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="minicart-item_total">
+        <span>Subtotal</span>
+        <span class="ammount">$@Model.TotalPrice.ToString("0.00")</span>
+    </div>
+    <div class="group-btn_wrap d-grid gap-2">
+        <a href="cart.html" class="btn btn-dark">View Cart</a>
+        <a href="checkout.html" class="btn btn-dark">Checkout</a>
+    </div>
+</div>

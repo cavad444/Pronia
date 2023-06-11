@@ -1,0 +1,85 @@
+﻿@model Plant
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1>Edit</h1>
+        <form asp-action="edit" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input class="form-control" asp-for="Name">
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId">CategoryId</label>
+                <select class="form-control" asp-for="CategoryId" asp-items="new SelectList(ViewBag.Categories,nameof(Category.Id),nameof(Category.Name))">
+                </select>
+                <span class="text-danger" asp-validation-for="CategoryId"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalePrice">SalePrice</label>
+                <input class="form-control" asp-for="SalePrice">
+                <span class="text-danger" asp-validation-for="SalePrice"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CostPrice">CostPrice</label>
+                <input class="form-control" asp-for="CostPrice">
+                <span class="text-danger" asp-validation-for="CostPrice"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description">Desc</label>
+                <textarea class="form-control" asp-for="Description" rows="2"></textarea>
+                <span class="text-danger" asp-validation-for="Description"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BestSeller">BestSeller</label>
+                <input class="form-control" asp-for="BestSeller">
+                <span class="text-danger" asp-validation-for="BestSeller"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsFeatured">IsFeatured</label>
+                <input class="form-control" asp-for="IsFeatured">
+                <span class="text-danger" asp-validation-for="IsFeatured"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Latest">Latest</label>
+                <input class="form-control" asp-for="Latest">
+                <span class="text-danger" asp-validation-for="Latest"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PosterImage">PosterImage</label>
+                <input class="form-control" asp-for="PosterImage">
+                <span class="text-danger" asp-validation-for="PosterImage"></span>
+                <img width="200" src="~/uploads/books/@Model.PlantImages.FirstOrDefault(x=>x.PosterStatus==true)?.ImageName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="HoverPosterImage">HoverPosterImage</label>
+                <input class="form-control" asp-for="HoverPosterImage">
+                <span class="text-danger" asp-validation-for="HoverPosterImage"></span>
+                <img width="200" src="~/uploads/books/@Model.PlantImages.FirstOrDefault(x=>x.PosterStatus==false)?.ImageName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Images">Images</label>
+                <input class="form-control" asp-for="Images">
+                <span class="text-danger" asp-validation-for="Images"></span>
+            </div>
+            <div class="d-flex">
+                @foreach (var item in Model.PlantImages.Where(x => x.PosterStatus == null))
+                {
+                    <div class="img-box" style="position:relative;margin-right:14px">
+                        <span class="remove-icon">x</span>
+                        <input type="hidden" value="@item.Id" name="PlantImageIds">
+                        <img width="200" src="~/uploads/plants/@item.ImageName" />
+                    </div>
+                }
+
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+

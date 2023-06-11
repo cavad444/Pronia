@@ -1,0 +1,42 @@
+﻿@model List<Category>
+@{
+    ViewData["Title"] = "Index";
+    int order = 0;
+}
+<div class="row justify-content-center">
+    <div class="col-md-8 justify-content-center">
+        <h1>Category</h1>
+        <a class="btn btn-primary" asp-action="create">Create</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">PlantCount</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    order++;
+                    <tr>
+                        <th scope="row">@order</th>
+                        <td>@item.Name</td>
+                        <td>@item.Plants.Count</td>
+
+                        <td>
+                            <a class="btn btn-warning">Edit</a>
+                            <a class="btn btn-danger delete-btn" asp-action="delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+}
